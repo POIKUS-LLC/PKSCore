@@ -1,0 +1,26 @@
+load("@rules_swift//swift:swift_library.bzl", "swift_library")
+load("@rules_swift//swift:swift_test.bzl", "swift_test")
+
+swift_library(
+    name = "PKSCore",
+    module_name = "PKSCore",
+    srcs = glob(["Sources/PKSCore/**/*.swift"]),
+    visibility = ["//visibility:public"],
+)
+
+swift_library(
+    name = "PKSCoreTestSupport",
+    module_name = "PKSCoreTestSupport",
+    srcs = glob(["Sources/PKSCoreTestSupport/**/*.swift"]),
+    deps = [":PKSCore"],
+    visibility = ["//visibility:public"],
+)
+
+swift_test(
+    name = "PKSCoreTests",
+    srcs = glob(["Tests/PKSCoreTests/**/*.swift"]),
+    deps = [
+        ":PKSCore",
+        ":PKSCoreTestSupport",
+    ],
+)
